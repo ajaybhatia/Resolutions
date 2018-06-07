@@ -106,33 +106,16 @@ class HomeComponent extends Component {
                   <Mutation mutation={TOGGLE_COMPLETE} key={resolution._id}>
                     {(toggleComplete, { data }) => (
                       <ListGroupItem>
-                        {resolution.complete ? (
-                          <>
-                            <span style={{ textDecoration: 'line-through' }}>{resolution.name}</span>
-                            <Badge
-                              color="danger"
-                              style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                toggleComplete({ variables: { id: resolution._id } });
-                              }}
-                            >
-                              Completed
-                            </Badge>
-                          </>
-                        ) : (
-                          <>
-                            <span>{resolution.name}</span>
-                            <Badge
-                              color="primary"
-                              style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                toggleComplete({ variables: { id: resolution._id } });
-                              }}
-                            >
-                              Not completed
-                            </Badge>
-                          </>
-                        )}
+                        <span style={{ textDecoration: resolution.complete ? "line-through": "none" }}>{resolution.name}</span>
+                        <Badge
+                          color={resolution.complete ? "danger" : "primary"}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            toggleComplete({ variables: { id: resolution._id } });
+                          }}
+                        >
+                          {resolution.complete ? "Completed" : "Not completed"}
+                        </Badge>
                         <Mutation mutation={REMOVE_RESOLUTION}>
                           {(removeResolution, { data }) => (
                             <span className="float-right">
