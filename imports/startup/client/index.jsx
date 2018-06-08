@@ -21,10 +21,24 @@ const networkInterface = createMeteorNetworkInterface({
 const client = new ApolloClient(meteorClientConfig({ networkInterface }));
 
 import Routes from './routes.jsx';
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+
+// optional cofiguration
+const options = {
+  position: 'top right',
+  timeout: 3000,
+  type: 'error',
+  offset: '30px',
+  transition: 'scale',
+  zIndex: 100
+}
 
 const App = () => (
   <ApolloProvider client={client}>
-    <Routes />
+    <AlertProvider template={AlertTemplate} {...options}>
+      <Routes />
+    </AlertProvider>
   </ApolloProvider>
 );
 

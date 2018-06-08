@@ -11,6 +11,7 @@ import {
   Input,
   Container
 } from 'reactstrap';
+import { withAlert } from 'react-alert';
 
 class RegisterComponent extends Component {
   render() {
@@ -31,7 +32,7 @@ class RegisterComponent extends Component {
                 username,
                 password
               }, error => {
-                if (error) console.log(error.reason);
+                if (error) this.props.alert.show(error.reason);
                 else {
                   client.resetStore();
                   router.replace('/');
@@ -55,6 +56,6 @@ class RegisterComponent extends Component {
     );
   }
 }
-const Register = withApollo(RegisterComponent);
+const Register = withApollo(withAlert(RegisterComponent));
 
 export { Register, RegisterComponent };

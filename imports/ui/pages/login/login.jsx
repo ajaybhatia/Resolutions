@@ -11,6 +11,7 @@ import {
   Input,
   Container
 } from 'reactstrap';
+import { withAlert } from 'react-alert';
 
 class LoginComponent extends Component {
   render() {
@@ -31,7 +32,7 @@ class LoginComponent extends Component {
                 username,
                 password,
                 error => {
-                  if (error) console.log(error.reason);
+                  if (error) this.props.alert.show(error.reason);
                   else {
                     client.resetStore();
                     router.replace('/');
@@ -56,6 +57,6 @@ class LoginComponent extends Component {
     );
   }
 }
-const Login = withApollo(LoginComponent);
+const Login = withApollo(withAlert(LoginComponent));
 
 export { Login, LoginComponent };
