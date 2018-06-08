@@ -1,3 +1,7 @@
+import { Login } from '/imports/ui/pages/login/login.jsx';
+
+import { Register } from '/imports/ui/pages/register/register.jsx';
+
 import { NotFound } from '/imports/ui/pages/not-found/not-found.jsx';
 
 import { Home } from '/imports/ui/pages/home/home.jsx';
@@ -19,3 +23,7 @@ export { MasterLayout };
 export { Home };
 
 export { NotFound };
+
+export { Register };
+
+export { Login };

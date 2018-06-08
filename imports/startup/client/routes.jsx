@@ -9,14 +9,27 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import * as Component from './templates.jsx';
 
+checkAuth = (nextState, replace) => {
+  if (!Meteor.userId()) {
+    replace('/login');
+  }
+}
+
 const Routes = () => (
-  <Router history={ browserHistory }>
-    
-      <Route path="/" component={Component.MasterLayout}>
-  <IndexRoute component={Component.Home}/>
-</Route>
-      <Route path="*" component={ Component.MasterLayout }>
-      <IndexRoute component={ Component.NotFound }/>
+  <Router history={browserHistory}>
+    <Route path="/" component={Component.MasterLayout} onEnter={checkAuth}>
+      <IndexRoute component={Component.Home} />
+    </Route>
+
+    <Route path="/register" component={Component.MasterLayout}>
+      <IndexRoute component={Component.Register} />
+    </Route>
+
+    <Route path="/login" component={Component.MasterLayout}>
+      <IndexRoute component={Component.Login} />
+    </Route>
+    <Route path="*" component={Component.MasterLayout}>
+      <IndexRoute component={Component.NotFound} />
     </Route>
   </Router>
 );

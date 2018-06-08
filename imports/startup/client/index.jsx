@@ -3,9 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fontawesome from "@fortawesome/fontawesome";
-import { faTimes } from "@fortawesome/fontawesome-free-solid";
+import { faTimes, faUser } from "@fortawesome/fontawesome-free-solid";
 
-fontawesome.library.add(faTimes);
+fontawesome.library.add(faTimes, faUser);
 
 // Apollo Client configuration using vanilla meteor settings.
 import ApolloClient from 'apollo-client';
@@ -24,7 +24,7 @@ import Routes from './routes.jsx';
 
 const App = () => (
   <ApolloProvider client={client}>
-  <Routes />
+    <Routes />
   </ApolloProvider>
 );
 

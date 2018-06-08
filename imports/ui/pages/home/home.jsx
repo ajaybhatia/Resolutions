@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import {
@@ -13,8 +12,13 @@ import {
   Label,
   Input,
   Button,
+  Nav,
   Navbar,
-  NavbarBrand
+  NavbarBrand,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
@@ -67,6 +71,30 @@ class HomeComponent extends Component {
         <Navbar color="light" light expand="md">
           <Container>
             <NavbarBrand href="/">Resolutions</NavbarBrand>
+            {Meteor.userId() && (
+              <Nav className="ml-auto" navbar>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    <FontAwesomeIcon icon="user" />
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem onClick={() => {
+                      const { client, router } = this.props;
+                      Meteor.logout(error => {
+                        if (error) console.log(error.reason);
+                        else {
+                          // Instead of calling just client.resetStore() -
+                          setTimeout(() => { client.resetStore(); }, 0);
+                          router.replace('/login');
+                        }
+                      });
+                    }}>
+                      Logout
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </Nav>
+            )}
           </Container>
         </Navbar>
         <Container>
@@ -138,6 +166,7 @@ class HomeComponent extends Component {
   }
 }
 
-const Home = withTracker(() => { return {}; })(HomeComponent);
+// const Home = withTracker(() => { return {}; })(HomeComponent);
+const Home = withApollo(HomeComponent);
 
 export { Home, HomeComponent };
