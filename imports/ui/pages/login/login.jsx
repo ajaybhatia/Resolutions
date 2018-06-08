@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { Query, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -14,40 +15,43 @@ import {
 class LoginComponent extends Component {
   render() {
     return (
-      <Container className="mt-5">
-        <Form onSubmit={e => {
-          e.preventDefault();
+      <Container>
+        <div className="d-flex justify-content-center" style={{ height: "100vh" }}>
+          <div className="col-md-4 align-self-center">
+            <legend>User Login</legend>
+            <Form onSubmit={e => {
+              e.preventDefault();
 
-          const { client, router } = this.props;
-          const form = e.target;
-          const username = form.username.value;
-          const password = form.password.value;
+              const { client, router } = this.props;
+              const form = e.target;
+              const username = form.username.value;
+              const password = form.password.value;
 
-          Meteor.loginWithPassword(
-            username,
-            password,
-            error => {
-              if (error) console.log(error.reason);
-              else {
-                client.resetStore();
-                router.replace('/');
-              }
-            }
-          );
-        }}>
-          <FormGroup>
-            <Label for="username">Username</Label>
-            <Input type="text" name="username" id="username" placeholder="Username" />
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">Password</Label>
-            <Input type="password" name="password" id="password" placeholder="Password" />
-          </FormGroup>
-          <Button color="primary">Login</Button>
-          <Button type="button" color="information" className="float-right" onClick={() => {
-            this.props.router.replace('/register');
-          }}>Not Registered?</Button>
-        </Form>
+              Meteor.loginWithPassword(
+                username,
+                password,
+                error => {
+                  if (error) console.log(error.reason);
+                  else {
+                    client.resetStore();
+                    router.replace('/');
+                  }
+                }
+              );
+            }}>
+              <FormGroup>
+                <Label for="username">Username</Label>
+                <Input type="text" name="username" id="username" placeholder="Username" />
+              </FormGroup>
+              <FormGroup>
+                <Label for="password">Password</Label>
+                <Input type="password" name="password" id="password" placeholder="Password" />
+              </FormGroup>
+              <Button color="primary">Login</Button>
+              <Link className="float-right pt-2" to="/register">Not Registered?</Link>
+            </Form>
+          </div>
+        </div>
       </Container>
     );
   }

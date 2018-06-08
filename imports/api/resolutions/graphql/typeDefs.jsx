@@ -16,5 +16,6 @@ export const typeDefs = `
     name: String!
     complete: Boolean!
     createdAt: Date!
+    userId: String
   }
 `;
